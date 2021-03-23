@@ -1,0 +1,21 @@
+2021-03-20 08:28:07,526 - INFO - Threads created ....
+2021-03-20 08:28:07,527 - INFO - FlaskApp Thread started
+2021-03-20 08:28:07,527 - INFO - MoveBorg Thread started
+2021-03-20 08:28:07,527 - INFO - HealthCheck Thread started
+2021-03-20 08:28:07,527 - INFO - Threads started ....
+2021-03-20 08:28:07,540 - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-03-20 08:28:10,213 - INFO - received a POST request
+2021-03-20 08:28:10,220 - INFO - fast turn  : None
+2021-03-20 08:28:10,220 - INFO - full speed : None
+2021-03-20 08:28:10,220 - INFO - user: admin logged in
+2021-03-20 08:28:10,228 - INFO - 127.0.0.1 - - [20/Mar/2021 08:28:10] "[37mPOST / HTTP/1.1[0m" 200 -
+2021-03-20 08:28:14,316 - INFO - Stopping MonsterBorg 
+2021-03-20 08:28:14,317 - INFO - 127.0.0.1 - - [20/Mar/2021 08:28:14] "[37mPOST /startstop HTTP/1.1[0m" 200 -
+2021-03-20 08:28:14,949 - INFO - Starting MonsterBorg 
+2021-03-20 08:28:14,950 - INFO - 127.0.0.1 - - [20/Mar/2021 08:28:14] "[37mPOST /startstop HTTP/1.1[0m" 200 -
+2021-03-20 08:28:16,532 - INFO - Signal too low, MonsterBorg Stopped for security reason
+2021-03-20 08:28:16,532 - INFO - Healtcheck / CPU usage : 14.7   / Battery level (V) : 12.5  / State : RUNNING  / Signal : POOR
+2021-03-20 08:28:17,532 - INFO - Moving MonsterBorg in Thread
+2021-03-20 08:28:18,480 - INFO - Monsterborg stopped when logout
+2021-03-20 08:28:18,481 - INFO - user admin logout
+2021-03-20 08:28:18,484 - INFO - 127.0.0.1 - - [20/Mar/2021 08:28:18] "[37mPOST /logout HTTP/1.1[0m" 200 -

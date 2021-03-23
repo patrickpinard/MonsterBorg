@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- metadata -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="MonsterBorg Command Center">
+        <meta name="author" content="Patrick Pinard">
+        <title>MonsterBorg CommandCenter</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    </head>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#"> MonsterBorg Command Center </a>
+                <span class="navbar-text">
+                  welcome {{ user }}
+                </span><form method="POST" action="logout" class="center-block">
+                  <button name="LOGOUT" type="submit" class="btn btn-secondary btn-secondary" value="LOGOUT"> LOGOUT </button>
+                </form> 
+                
+        </nav>
+        <!-- Page Content -->
+        <div class="container">
+          <div class="row">
+            <div class="col">
+            <p>&nbsp;</p> 
+            <!-- Heading Row -->
+            <div class="row align-items-center my-6">
+                <div class="col-lg-12">
+                    <p>&nbsp;</p> 
+                    <img src="https://topesdegama.com/app/uploads-topesdegama.com/2017/03/monsterborg-raspberry.jpg"class="img-fluid" alt="Responsive image"> 
+                    <!-- <img src="http://monsterborg.ppdlab.ch:8080/video_feed" width="50%"> -->
+                </div>
+            </div>
+          </div>
+          <p>&nbsp;</p> 
+          <p>&nbsp;</p> 
+          <div class="col-lg-auto">
+            <p>&nbsp;</p> 
+            <form method="POST" action="/startstop">
+                <div class="btn-group-lg" role="group" >
+                <p>&nbsp;</p>
+                <form method="POST" action="/startstop" class="center-block">
+                    <button name="state" type="submit" class="btn btn-danger btn-lg" value="STOP">  STOP  </button> <b></b>
+                    <button name="state" type="submit" class="btn btn-primary btn-lg" value="START">  START </button>
+                </form>
+            </div>
+            <p>&nbsp;</p> 
+            <form method="POST" action="/move">
+                <div class="btn-group-lg" role="group" > 
+                    <button name="direction" type="submit" class="btn btn-secondary" style="margin: 20px;" value="forward">forward</button> <p>&nbsp;</p>
+                    <button name="direction" type="submit" class="btn btn-secondary"  value="left"> left </button> 
+                    <button name="direction" type="submit" class="btn btn-secondary"  value="righ"> right </button> <p>&nbsp;</p>
+                    <button name="direction" type="submit" class="btn btn-secondary" style="margin:20px;" value="backward">backward</button>
+                </div>
+            </form> 
+          </div>
+          <!-- Content Row -->
+          <div class="container">
+            <p>&nbsp;</p> 
+            <div class="checkbox">
+              <form action="/checkbox" method="post"></form>
+                <label>
+                  <input name="fast_turn" type="checkbox" data-toggle="toggle">
+                  Fast turn
+                  &nbsp &nbsp &nbsp &nbsp
+                  <input name="full_speed" type="checkbox" data-toggle="toggle">
+                  Full speed
+                </label>
+              <form>
+            </div>
+            <div class="row my-4">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <div class="card">
+                <h5 class="card-header">Energy</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{ battery }}</h5>
+                  <p class="card-text">LiPo battery (volts)</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Communication</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ signal }}</h5>
+                      <p class="card-text">Signal strenght</p>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Systems</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ cpu }}</h5>
+                      <p id="time"> </p>
+                      <p class="card-text"> cpu usage % </p>  
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">State</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ state }}</h5>
+                      <p class="card-text">Monsterborg state</p>
+                    </div>
+                  </div>
+            </div>
+            </div>
+          </div>  
+            <!-- /.row -->
+        </div>         
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer class="py-2 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white"> MonsterBorg Project v1.0 -  monsterborg.ppdlab.ch - mars 2021  </p>
+            </div>
+        <!-- /.container -->
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    </body>
+</html>
