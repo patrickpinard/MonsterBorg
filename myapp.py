@@ -19,17 +19,17 @@ import random
 import psutil
 import logging
 import threading
-#import carLib
-#from camera_pi import Camera
+import carLib
+from camera_pi import Camera
 
 global Borg, state, battery, cpu_usage, signal
 
 PASSWORD = 'password'
 USERNAME = 'admin'
-FREQUENCY = 10   # délai d'attente en secondes avant prochain déplacement. A ajuster en mode réel pour être réactif  
+MOVING_TIME = 0.5   # délai d'attente en secondes avant prochain déplacement. A ajuster en mode réel pour être réactif  
 
 cpu_usage ="unknown"
-signal = "unknown"
+signal = "GOOD"
 state = "unknown"
 battery = "unknown"
 name = "unknown"
@@ -39,24 +39,20 @@ full_speed = False
 # fichier log
 logging.basicConfig(filename='myapp.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
 app = Flask(__name__)
-
-
+ 
 def gen(camera):
     """Video streaming generator function."""
-    logging.info("camera video streaming generator")
-    #while True:
-        #frame = camera.get_frame()
-        #yield (b'--frame\r\n'
-        #       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    logging.info("/video_feed")
-    #return Response(gen(Camera()),
-    #                mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/', methods=["GET", "POST"])
 def home():
@@ -80,12 +76,11 @@ def home():
         pwd = request.form.get("password")
 
         # toogle test pour full speed et fast turn
-        fast_turn = request.form.get('fast_turn')
-        full_speed = request.form.get('full_speed')
-        logging.info("fast turn  : " + str(fast_turn))
-        logging.info("full speed : " + str(full_speed))
+        #fast_turn = request.form.get('fast_turn')
+        #full_speed = request.form.get('full_speed')
+        #logging.info("fast turn  : " + str(fast_turn))
+        #logging.info("full speed : " + str(full_speed))
         # fin du test 
-
 
         if pwd == PASSWORD and name == USERNAME:
                 logging.info("user: " + name + " logged in")
@@ -100,7 +95,7 @@ def home():
 def logout():
     global name
     # stop the Monsterborg if logout
-    # Borg.running = False
+    Borg.running = False
     logging.info("Monsterborg stopped when logout")
     session["logged_in"] = False
     logging.info("user " + name + " logout")
@@ -117,14 +112,12 @@ def startstop():
             parser.add_argument('state', type=str, required=True, help='START/STOP MonsterBorg')           
             args = parser.parse_args()
             command = args['state']
-            battery = 12.5   #lecture avec Borg.curr_battery
-            state =  "undefined"  #lecture avec Borg.running
             if command == "START":
-                    #Borg.running = True
+                    Borg.running = True
                     state = "RUNNING"
                     logging.info("Starting MonsterBorg ")
             elif command == "STOP":
-                    #Borg.running = False
+                    Borg.running = False
                     state = "STOPPED"
                     logging.info("Stopping MonsterBorg ")
     return render_template("index.html",user = name, battery=battery, state=state, signal=signal, cpu=cpu_usage)
@@ -134,34 +127,32 @@ def move():
     
     global Borg, cpu_usage, signal, battery, state, name
     
-    steering = 0.4
-    speed = 0.6
-
     parser = reqparse.RequestParser(bundle_errors=True)
     parser.add_argument('direction', type=str, required=True, help='MonsterBorg move direction : left, right, forward, backward')           
     args = parser.parse_args()
     direction = args['direction']
-    
-    if direction == "right":             
-        #    pour aller à droite, on freine les roues droites                                                                                                                                                      
-        #Borg.speedleft  = speed * (1 - steering)
-        #Borg.speedright = speed
-        logging.info("received command : move right ")
-    elif direction == "left":
-        #    pour aller à gauche, on freine les roues gauches
-        #Borg.speedright = speed * (1 + steering) 
-        #Borg.speedleft  = speed
-        logging.info("received command : move left ")
+    speed = 0.4
+    steering = 0.05
+    if direction == "left":             
+        #    pour aller à droite                                                                                                                                                      
+        Borg.speedright  = -speed 
+        Borg.speedleft = speed * (1 + steering)
+        logging.info("received command : move right / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
+    elif direction == "right":
+        #    pour aller à gauche
+        Borg.speedright = speed * (1 + steering)
+        Borg.speedleft  = -speed 
+        logging.info("received command : move left / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
     elif direction == "forward":
-        #Borg.speedright = speed 
-        #Borg.speedleft  = speed
-        logging.info("received command : move forward ")
+        Borg.speedright = speed 
+        Borg.speedleft  = speed
+        logging.info("received command : move forward / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
     elif direction == "backward":
-        #Borg.speedright = -speed 
-        #Borg.speedleft  = -speed
-        logging.info("received command : move backward ")
+        Borg.speedright = -speed 
+        Borg.speedleft  = -speed
+        logging.info("received command : move backward / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
       
-    return render_template("index.html",user = name, battery=battery, state=state, signal=signal, cpu=cpu_usage)   
+    return render_template("index.html",user = name, battery=battery, state=state, signal=signal, cpu=cpu_usage, left= Borg.speedleft, right=Borg.speedright)   
    
 class FlaskApp (threading.Thread):
    def __init__(self, threadID, name):
@@ -174,17 +165,20 @@ class FlaskApp (threading.Thread):
 
 
 class MoveBorg (threading.Thread):
-   def __init__(self, threadID, name):
+    global Borg
+    def __init__(self, threadID, name):
       threading.Thread.__init__(self)
       self.threadID = threadID
       self.name = name
-   def run(self):
-       
-       logging.info("MoveBorg Thread started") 
-       while True: 
-        #Borg.move()
-        sleep(FREQUENCY)
-        logging.info("Moving MonsterBorg in Thread")
+
+    def run(self):
+        logging.info("MoveBorg Thread started") 
+        while True : 
+            try:
+                while Borg.running: 
+                    Borg.move()
+            except: logging.error("Move error in Thread")
+
 
 class HealthCheck (threading.Thread):
    def __init__(self, threadID, name):
@@ -192,37 +186,29 @@ class HealthCheck (threading.Thread):
       self.threadID = threadID
       self.name = name
    def run(self):
-       global battery, state,cpu_usage, signal
+
+       global Borg, battery, state,cpu_usage, signal
+
        logging.info("HealthCheck Thread started") 
        while True: 
         sleep(5)
-        #battery = Borg.battCurrent
-        #if Borg.running:
-        #    state = "RUNNING"
-        #elif:
-        #    state = "STOPPED"
+        battery = Borg.battery()
+        if Borg.running:
+            state = "RUNNING"
+        else: 
+            state = "STOPPED"
         cpu_usage = psutil.cpu_percent(4)
-        signal = random.randint(0,9)
-        if signal < 3:
-            signal = "POOR"
-            # On arrête le véhicule si signal pas assez fort
-            # Borg.running = False
-            logging.info("Signal too low, MonsterBorg Stopped for security reason" )
-        elif signal > 2  and signal < 6 :
-            signal = "GOOD"
-        elif signal > 5:
-            signal = "VERY GOOD"
-        logging.info("Healtcheck / CPU usage : " + str(cpu_usage) + "   / Battery level (V) : " + str(battery) + "  / State : " + state + "  / Signal : " + str(signal))
+        signal = "GOOD"
+        logging.info("Healtcheck / CPU usage : " + str(cpu_usage) + "   / Battery level (V) : " + str(battery) + "  / State : " + state + "  / Signal : " + signal)
 
 if __name__ == '__main__':
     
     app.secret_key = os.urandom(12)
     
     #Create the MonsterBorg car
-    #Borg = carLib.car("MonsterBorg")
-    #Borg.start()
-    
-    
+    Borg = carLib.car("MonsterBorg")
+    Borg.start()
+
     # Create new threads
     thread1 = FlaskApp(1, "FlaskApp")
     thread2 = MoveBorg(2, "MoveBorg")
