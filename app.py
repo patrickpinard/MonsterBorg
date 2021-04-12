@@ -188,6 +188,22 @@ class MoveBorg (threading.Thread):
                     Borg.move()
             except: logging.error("Move error in Thread")
 
+class DNSUpdater (threading.Thread):
+    
+    def __init__(self, threadID, name):
+      threading.Thread.__init__(self)
+      self.threadID = threadID
+      self.name = name
+
+    def run(self):
+        logging.info("DNSUpdater Thread started") 
+        while True : 
+            try:
+                while True: 
+                    os.system("dns-updater -c /home/pi/.config/exo-dns-updater.toml")
+                    logging.info("dns-updater executed")
+                    sleep(60)
+            except: logging.error("DNSUpdater error in Thread")
 
 class HealthCheck (threading.Thread):
    def __init__(self, threadID, name):
@@ -222,17 +238,20 @@ if __name__ == '__main__':
     thread1 = FlaskApp(1, "FlaskApp")
     thread2 = MoveBorg(2, "MoveBorg")
     thread3 = HealthCheck(3, "Healthcheck")
+    thread4 = DNSUpdater(4, "DNS-Updater")
     logging.info("Threads created ....") 
     
     # Start new Threads
     thread1.start()
     thread2.start()
     thread3.start()
+    thread4.start()
 
     logging.info("Threads started ....")
     thread1.join()
     thread2.join()
     thread3.join()
+    thread4.join()
     logging.info("Threads joined ....")
 
 
