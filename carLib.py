@@ -125,9 +125,8 @@ class car:
         speedleft et speedright pour chaque côté afin d'aller en avant et arrière
         """
         if self.running:
-            if ((self.speedleft and self.speedright) > MIN_SPEED) and ((self.speedleft and self.speedright) < - MAX_SPEED):
-                self.TB.SetMotor2(-self.speedleft)
-                self.TB.SetMotor1(-self.speedright)
+            self.TB.SetMotor2(-self.speedleft)
+            self.TB.SetMotor1(-self.speedright)
             if DEBUG: 
                 logging.info("vitesse gauche : %s     droite : %s", self.speedleft, self.speedright)
         return
