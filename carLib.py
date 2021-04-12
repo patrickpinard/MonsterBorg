@@ -115,8 +115,8 @@ class car:
         """
         Méthode retournant le niveau de la batterie LiPo dans .battCurrent
         """ 
-        self.battCurrent = self.TB.GetBatteryReading()
-        logging.info('niveau batterie : ' + str(self.battCurrent))
+        self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
+        logging.info('niveau batterie : '+ str(self.battCurrent))
         return
     
     def move(self):
@@ -126,7 +126,7 @@ class car:
         """
         if self.running:
             self.TB.SetMotor2(-self.speedleft)
-            self.TB.SetMotor1(-self.speedright)
+            self.TB.SetMotor1(self.speedright)
             if DEBUG: 
                 logging.info("vitesse gauche : %s     droite : %s", self.speedleft, self.speedright)
         return
