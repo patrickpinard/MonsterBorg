@@ -57,7 +57,7 @@ def video_feed():
 def test():
     slider_speed = request.form["slider_speed"]
     logging.info("speed slider value" + str(slider_speed))
-    return slider_speed
+    return render_template("index.html",user = name)
 
 @app.route('/', methods=["GET", "POST"])
 def home():
