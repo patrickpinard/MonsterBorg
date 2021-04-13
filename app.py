@@ -53,6 +53,12 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route("/test", methods=["POST"])
+def test():
+    slider_speed = request.form["slider_speed"]
+    logging.info("speed slider value" + str(slider_speed))
+    return slider_speed
+
 @app.route('/', methods=["GET", "POST"])
 def home():
     
