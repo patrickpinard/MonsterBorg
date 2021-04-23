@@ -92,71 +92,28 @@
           <!-- Content Row -->
           <div class="container">
             <p>&nbsp;</p> 
-            <div class="checkbox">
-              <form action="/checkbox" method="post"></form>
-                <label>
-                  <input name="fast_turn" type="checkbox" data-toggle="toggle">
-                  Fast turn
-                  &nbsp &nbsp &nbsp &nbsp
-                  <input name="full_speed" type="checkbox" data-toggle="toggle">
-                  Full speed
-                </label>
-              <form>
-            </div>
-            <div class="row my-4">
-            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <div class="card">
-                <h5 class="card-header">Battery</h5>
-                <div class="card-body">
-                  <h5 class="card-title">{{ battery }}</h5>
-                  <p class="card-text"> Level in Volts (min 9,4)</p>
+              <div class="row my-4">
+                <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                      <p Battery : {{ battery }} </p>
+                </div>
+                <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                      <p Signal : {{ signal }}</p>
+                </div>
+                <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                  <p CPU : {{ cpu }}</p>
+                </div>
+                <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                  <p  state : {{ state }}</p>
+                  <p   left : {{ left }}  &nbsp &nbsp right : {{ right }}</p>
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-                <div class="card">
-                    <h5 class="card-header">Communication</h5>
-                    <div class="card-body">
-                      <h5 class="card-title">{{ signal }}</h5>
-                      <p class="card-text">Signal strenght</p>
-                    </div>
-                  </div>
-            </div>
-            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-                <div class="card">
-                    <h5 class="card-header">Process</h5>
-                    <div class="card-body">
-                      <h5 class="card-title">{{ cpu }}</h5>
-                      <p class="card-text"> cpu usage % </p>  
-                    </div>
-                  </div>
-            </div>
-            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
-                <div class="card">
-                    <h5 class="card-header">Motors</h5>
-                    <div class="card-body">
-                      <h5 class="card-title">state : {{ state }}</h5>
-                      <p class="card-text"> left : {{ left }}  &nbsp &nbsp right : {{ right }}</p>
-                    </div>
-                  </div>
-            </div>
-            </div>
           </div>  
             <!-- /.row -->
-        </div>         
+                
         <!-- /.container -->
-        <!-- Footer -->
-        <footer class="py-2 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white"> MonsterBorg Project v1.0 -  monsterborg.ppdlab.ch - mars 2021  </p>
-            </div>
-        <!-- /.container -->
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+                
         <script type="text/javascript">
-
+        
           // POSTer function uses ajax library to post data from joystick to the server
           
           function POSTer(toLolcalHosta, toLolcalHostb,toLolcalHostc, toLolcalHostd) {
@@ -201,5 +158,15 @@
             }, 50);
           
               </script>
+    <!-- Footer -->
+    <footer class="py-2 bg-dark">
+      <div class="container">
+          <p class="m-0 text-center text-white"> MonsterBorg Project v1.0 -  monsterborg.ppdlab.ch - mars 2021  </p>
+      </div>
+  <!-- /.container -->
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     </body>
 </html>
