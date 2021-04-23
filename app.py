@@ -118,29 +118,25 @@ def startstop():
 def poster():
     
     if request.method == "POST":
-
-        #   Collect JSON data sent by POSTer method every 50ms. It saves 
-        #   strings into 4 variables which varies from -100 to 100
          
         content = request.json
         steering = json.dumps(content['motorX'])      
         speed = json.dumps(content['motorY'])
-        #steering = json.dumps(content['servoX'])/100
-        #speed = json.dumps(content['servoY'])/100
+        steering = json.dumps(content['servoX'])
+        speed = json.dumps(content['servoY'])
+        logging.info("steering  : " + str(steering))
+        logging.info("speed     : " + str(speed))  
 
-        if steering > 0.0:
+        if steering > 0:
             Borg.speedleft  = speed * (100 - steering)
             Borg.speedright = speed
-        elif steering < 0.0:
-            #    pour aller à gauche, on freine les roues gauches
+        elif steering < 0:
             Borg.speedright = speed * (100 + steering) 
             Borg.speedleft  = speed
-        elif steering == 0.0:
+        elif steering == 0:
             Borg.speedright = speed 
             Borg.speedleft  = speed   
 
-        logging.info("steering  : " + str(steering))
-        logging.info("speed     : " + str(speed))  
         logging.info("speedleft : " + str(Borg.speedleft))
         logging.info("speedright: " + str(Borg.speedright))         
 
