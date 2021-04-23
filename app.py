@@ -139,10 +139,10 @@ def poster():
             Borg.speedright = speed 
             Borg.speedleft  = speed   
 
-        print("steering X : ", motorX)
-        print("steering Y : ", motorY)
-        print("speed X    : ", servo1)
-        print("speed Y    : ", servo2)           
+        logging.info("steering  : " + str(steering))
+        logging.info("speed     : " + str(speed))  
+        logging.info("speedleft : " + str(Borg.speedleft))
+        logging.info("speedright: " + str(Borg.speedright))         
 
         return "ok"
 
