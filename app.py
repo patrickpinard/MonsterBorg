@@ -22,6 +22,7 @@ import threading
 import carLib
 import json
 from camera_pi import Camera
+from flask_cors import CORS
 
 global Borg, state, battery, cpu_usage, signal
 
@@ -33,7 +34,8 @@ name    = ""
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 app = Flask(__name__)
- 
+CORS(app)
+
 def gen(camera):
     """Video streaming generator function."""
     while True:
