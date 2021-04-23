@@ -114,10 +114,10 @@ def startstop():
                     logging.info("Stopping MonsterBorg ")
     return render_template("index.html",user = name)
 
-@app.route("/post", methods=['GET','POST'])
+@app.route("/post", methods=['POST'])
 def poster():
-    
-    if request.method == "POST" or "GET":
+    logging.info("enter in poster def ")
+    if request.method == "POST":
          
         content = request.json
         steering = json.dumps(content['motorX'])      
@@ -218,20 +218,20 @@ if __name__ == '__main__':
     thread1 = FlaskApp(1, "FlaskApp")
     thread2 = MoveBorg(2, "MoveBorg")
     thread3 = HealthCheck(3, "Healthcheck")
-    thread4 = DNSUpdater(4, "DNS-Updater")
+    #thread4 = DNSUpdater(4, "DNS-Updater")
     logging.info("Threads created ....") 
     
     # Start new Threads
     thread1.start()
     thread2.start()
     thread3.start()
-    thread4.start()
+    #thread4.start()
 
     logging.info("Threads started ....")
     thread1.join()
     thread2.join()
     thread3.join()
-    thread4.join()
+    #thread4.join()
     logging.info("Threads joined ....")
 
 
