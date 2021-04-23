@@ -24,8 +24,8 @@ import ThunderBorg3 as ThunderBorg
 logging = logging.getLogger()
 
 DEBUG = False
-MIN_SPEED = 0.3 # niveau minimum pour faire démarrer le moteur
-MAX_SPEED = 0.95 # niveau maximum moteur autorisé
+MIN_SPEED = 30 # niveau minimum pour faire démarrer le moteur
+MAX_SPEED = 95 # niveau maximum moteur autorisé
 
 
 class car:
@@ -125,8 +125,8 @@ class car:
         speedleft et speedright pour chaque côté afin d'aller en avant et arrière
         """
         if self.running:
-            self.TB.SetMotor2(-self.speedleft)
-            self.TB.SetMotor1(self.speedright)
+            self.TB.SetMotor2(-self.speedleft/100)
+            self.TB.SetMotor1(self.speedright/100)
             if DEBUG: 
                 logging.info("vitesse gauche : %s     droite : %s", self.speedleft, self.speedright)
         return

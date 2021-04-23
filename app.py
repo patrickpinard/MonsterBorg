@@ -27,6 +27,7 @@ global Borg, state, battery, cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
+name    = ""
 
 # fichier log
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -55,7 +56,7 @@ def test():
 @app.route('/', methods=["GET", "POST"])
 def home():
     
-    global Borg, cpu_usage, signal, battery, state, name, fast_turn, full_speed
+    global Borg
 
     if request.method == "GET":
         # Check if user already logged in
@@ -122,17 +123,17 @@ def poster():
         #   strings into 4 variables which varies from -100 to 100
          
         content = request.json
-        #motorX = json.dumps(content['motorX'])      
-        #motorY = json.dumps(content['motorY'])
-        steering = json.dumps(content['servoX'])/100
-        speed = json.dumps(content['servoY'])/100
+        steering = json.dumps(content['motorX'])      
+        speed = json.dumps(content['motorY'])
+        #steering = json.dumps(content['servoX'])/100
+        #speed = json.dumps(content['servoY'])/100
 
         if steering > 0.0:
-            Borg.speedleft  = speed * (1 - steering)
+            Borg.speedleft  = speed * (100 - steering)
             Borg.speedright = speed
         elif steering < 0.0:
             #    pour aller à gauche, on freine les roues gauches
-            Borg.speedright = speed * (1 + steering) 
+            Borg.speedright = speed * (100 + steering) 
             Borg.speedleft  = speed
         elif steering == 0.0:
             Borg.speedright = speed 
