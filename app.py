@@ -20,22 +20,13 @@ import psutil
 import logging
 import threading
 import carLib
+import json
 from camera_pi import Camera
 
 global Borg, state, battery, cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
-VIEWER      = "viewer"
-CONTROLER   = "controler"
-
-cpu_usage ="unknown"
-signal = "GOOD"
-state = "unknown"
-battery = "unknown"
-name = "unknown"
-fast_turn = False
-full_speed = False
 
 # fichier log
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -105,7 +96,7 @@ def logout():
 @app.route("/startstop",methods = ['POST', 'GET'])                          
 def startstop():
 
-    global Borg, cpu_usage, signal, battery, state, name
+    global Borg
     
     if session.get('logged_in'):
             parser = reqparse.RequestParser(bundle_errors=True)
@@ -122,53 +113,37 @@ def startstop():
                     logging.info("Stopping MonsterBorg ")
     return render_template("index.html",user = name)
 
-@app.route('/move',methods = ['POST'])  
-def move():
+@app.route("/post", methods=['GET','POST'])
+def poster():
     
-    global Borg, cpu_usage, signal, battery, state, name
-    
-    parser = reqparse.RequestParser(bundle_errors=True)
-    parser.add_argument('direction', type=str, required=True, help='MonsterBorg move direction : left, right, forward, backward')           
-    args = parser.parse_args()
-    direction = args['direction']
-    
-    #if steering > 0.0:             
-        #    pour aller à droite, on freine les roues droites                                                                                                                                                      
-    #    Borg.speedleft  = speed * (1 - steering)
-    #    Borg.speedright = speed
-    #elif steering < 0.0:
-        #    pour aller à gauche, on freine les roues gauches
-    #    Borg.speedright = speed * (1 + steering) 
-    #    Borg.speedleft  = speed
-    #elif steering == 0.0:
-    #    Borg.speedright = speed 
-    #    Borg.speedleft  = speed   
+    if request.method == "POST":
 
-    if direction == "left":    
-        speed = 0.35
-        steering = 0.25                                                                                                                                                            
-        Borg.speedright  = -speed 
-        Borg.speedleft = speed * (1 + steering)
-        logging.info("received command : move left / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
-    elif direction == "right":
-        speed = 0.35
-        steering = 0.25
-        Borg.speedright = speed * (1 + steering)
-        Borg.speedleft  = -speed 
-        logging.info("received command : move right / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
-    elif direction == "forward":
-        speed = 0.4
-        steering = 0.0
-        Borg.speedright = -speed 
-        Borg.speedleft  = -speed
-        logging.info("received command : move forward / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
-    elif direction == "backward":
-        speed = 0.4
-        steering = 0.0
-        Borg.speedright = speed 
-        Borg.speedleft  = speed
-        logging.info("received command : move backward / speedright = " + str(Borg.speedright) +  "  speedleft = " + str(Borg.speedleft))
-    return render_template("index.html",user = name, battery=battery, state=state, signal=signal, cpu=cpu_usage, left= Borg.speedleft, right=Borg.speedright) 
+        #   Collect JSON data sent by POSTer method every 50ms. It saves 
+        #   strings into 4 variables which varies from -100 to 100
+         
+        content = request.json
+        #motorX = json.dumps(content['motorX'])      
+        #motorY = json.dumps(content['motorY'])
+        steering = json.dumps(content['servoX'])/100
+        speed = json.dumps(content['servoY'])/100
+
+        if steering > 0.0:
+            Borg.speedleft  = speed * (1 - steering)
+            Borg.speedright = speed
+        elif steering < 0.0:
+            #    pour aller à gauche, on freine les roues gauches
+            Borg.speedright = speed * (1 + steering) 
+            Borg.speedleft  = speed
+        elif steering == 0.0:
+            Borg.speedright = speed 
+            Borg.speedleft  = speed   
+
+        print("steering X : ", motorX)
+        print("steering Y : ", motorY)
+        print("speed X    : ", servo1)
+        print("speed Y    : ", servo2)           
+
+        return "ok"
 
 
 class FlaskApp (threading.Thread):
