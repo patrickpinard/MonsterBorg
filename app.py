@@ -24,8 +24,10 @@ from camera_pi import Camera
 
 global Borg, state, battery, cpu_usage, signal
 
-PASSWORD = 'password'
-USERNAME = "admin"
+PASSWORD    = 'password'
+USERNAME    = "admin"
+VIEWER      = "viewer"
+CONTROLER   = "controler"
 
 cpu_usage ="unknown"
 signal = "GOOD"
@@ -80,10 +82,14 @@ def home():
         name = request.form.get("username")
         pwd = request.form.get("password")
 
-        if pwd == PASSWORD and name == USERNAME:
+        if pwd == PASSWORD and name == VIEWER:
                 logging.info("user: " + name + " logged in")
                 session['logged_in'] = True
-                return render_template('index.html',user=name)
+                return render_template('view.html',user=name)
+        elif pwd == PASSWORD and name == CONTROLER:
+                logging.info("user: " + name + " logged in")
+                session['logged_in'] = True
+                return render_template('control.html',user=name)
         else:
                 logging.warning("login with wrong username and password")
                 return render_template('login.html', error_message="wrong username and password. Please try again")
