@@ -115,9 +115,9 @@ class car:
         """
         Méthode retournant le niveau de la batterie LiPo dans .battCurrent
         """ 
-        self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
+        # self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
         logging.info('niveau batterie : '+ str(self.battCurrent))
-        return
+        return "{:2.2f}".format(self.battCurrent)
     
     def move(self):
         """

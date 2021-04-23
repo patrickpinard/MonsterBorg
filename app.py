@@ -117,7 +117,7 @@ def startstop():
 @app.route("/post", methods=['GET','POST'])
 def poster():
     
-    if request.method == "POST":
+    if request.method == "POST" or "GET":
          
         content = request.json
         steering = json.dumps(content['motorX'])      
