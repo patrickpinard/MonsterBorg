@@ -7,7 +7,37 @@
         <meta name="description" content="MonsterBorg Command Center">
         <meta name="author" content="Patrick Pinard">
         <title>MonsterBorg CommandCenter</title>
-        <!-- Bootstrap CSS -->
+        <style>
+
+          body
+          {
+            margin: 0px;
+            padding: 0px;
+            font-family: monospace;
+          }
+          .row
+          {
+            display: inline-flex;
+            clear: both;
+          }
+          .columnLateralsx
+          {
+          float: left;
+          width: 15%;
+          min-width: 400px;
+          }
+          .columnLateraldx
+          {
+          float: right;
+          width: 15%;
+          min-width: 400px;
+          }
+    
+        </style>
+        <!-- import joystick library and ajax-->
+        <script src="static/joy.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- import Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     </head>
@@ -51,19 +81,13 @@
                 </div>
                 <p>&nbsp;</p> 
                 <p>&nbsp;</p> 
-                <form method="POST" action="test">
-                  <input type="range" min="0" max="100" name="slider_speed" />
-                  
-               </form>
+            </form>
             <p>&nbsp;</p> 
-            <form method="POST" action="/move">
-                <div class="btn-group-lg" role="group" > 
-                    <button name="direction" type="submit" class="btn btn-secondary" style="margin: 20px;" value="forward" >forward</button> <p>&nbsp;</p>
-                    <button name="direction" type="submit" class="btn btn-secondary"  value="left" > left </button> 
-                    <button name="direction" type="submit" class="btn btn-secondary"  value="right"> right </button> <p>&nbsp;</p>
-                    <button name="direction" type="submit" class="btn btn-secondary" style="margin:20px;" value="backward">backward</button>
-                </div>
-            </form> 
+            
+              <div class="columnLateralsx">
+                <div id="speed" style="width:300px;height:300px;margin:100px"></div>
+              </div>
+          
           </div>
           <!-- Content Row -->
           <div class="container">
@@ -131,5 +155,51 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+        <script type="text/javascript">
+
+          // POSTer function uses ajax library to post data from joystick to the server
+          
+          function POSTer(toLolcalHosta, toLolcalHostb,toLolcalHostc, toLolcalHostd) {
+            formDATI = {
+                      "motorX": toLolcalHosta,
+                "motorY": toLolcalHostb,
+                "servoX" : toLolcalHostc,
+                "servoY" : toLolcalHostd
+              };
+            
+            //	Transform data into JSON to be sent	
+              var formData = JSON.stringify(formDATI);
+          
+            //	Ajax Request
+              $.ajax({
+              type: "POST",							// Post method sends data whithoud showing in url
+              url: window.location.href + "post",		// Link is taken from the location url added by "post" (flask POST route)
+              data: formData,							// Data is JSON dataset
+              success: function(){},
+              dataType: "json",
+            contentType : "application/json",
+            secure: true, 
+            headers: {								// Header is made for CORS policy
+              'Access-Control-Allow-Origin' : '*',
+            }
+          
+              });
+          }
+          
+          
+          // Create Joystick objects
+          var Joy1 = new JoyStick('speed');
+          var Joy2 = new JoyStick('steering');
+          
+          //Call POSTer function every 50ms, sending data acquired by the two joysticks 
+          setInterval(function(){ 
+            joy1Xvar = Joy1.GetX();
+            joy1Yvar = Joy1.GetX();
+            joy2Xvar = Joy2.GetX();
+            joy2Yvar = Joy2.GetY(); 
+            POSTer(parseInt(joy2Xvar), parseInt(joy2Yvar), parseInt(joy1Xvar), parseInt(joy1Yvar)) 
+            }, 50);
+          
+              </script>
     </body>
 </html>
