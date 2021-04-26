@@ -49,12 +49,6 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route("/test", methods=["POST"])
-def test():
-    slider_speed = request.form["slider_speed"]
-    logging.info("speed slider value" + str(slider_speed))
-    return render_template("index.html",user = name)
-
 @app.route('/', methods=["GET", "POST"])
 def home():
     
@@ -122,6 +116,7 @@ def poster():
     if request.method == "POST":
          
         content = request.json
+        # voir quelle joystick est la direction et la vitesse ....
         steering = json.dumps(content['motorX'])      
         speed = json.dumps(content['motorY'])
         steering = json.dumps(content['servoX'])
@@ -183,7 +178,7 @@ class DNSUpdater (threading.Thread):
             try:
                 while True: 
                     os.system("dns-updater -c /home/pi/.config/exo-dns-updater.toml")
-                    logging.info("dns-updater executed")
+                    logging.info("dns-updater executed every 60 sec.")
                     sleep(60)
             except: logging.error("DNSUpdater error in Thread")
 
