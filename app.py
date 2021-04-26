@@ -117,8 +117,8 @@ def poster():
          
         content = request.json
         # voir quelle joystick est la direction et la vitesse ....
-        steering = json.dumps(content['motorX'])      
-        speed = json.dumps(content['motorY'])
+        #steering = json.dumps(content['motorX'])      
+        #speed = json.dumps(content['motorY'])
         steering = json.dumps(content['servoX'])
         speed = json.dumps(content['servoY'])
         logging.info("steering  : " + str(steering))
