@@ -117,8 +117,8 @@ def poster():
     if request.method == "POST":
          
         content = request.json
-        steering = int(json.dumps(content['joystick_X']))
-        speed = int(json.dumps(content['joystick_Y']))
+        steering = int(json.dumps(content['steering']))
+        speed = int(json.dumps(content['speed']))
         
         if steering > 0:
             Borg.speedleft  = speed * (100 - steering)
