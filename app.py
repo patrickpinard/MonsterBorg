@@ -121,10 +121,10 @@ def poster():
         speed = int(json.dumps(content['joy1_y']))
         
         if steering > 5:
-            Borg.speedleft  = speed * (1 - steering/100)
+            Borg.speedleft  = int(speed * (1 - steering/100))
             Borg.speedright = speed
         elif steering < -5:
-            Borg.speedright = speed * (1 + steering/100) 
+            Borg.speedright = int(speed * (1 + steering/100))
             Borg.speedleft  = speed
         else:
             Borg.speedright = speed 
@@ -197,9 +197,11 @@ class HealthCheck (threading.Thread):
             state = "RUNNING"
         else: 
             state = "STOPPED"
-        cpu_usage = psutil.cpu_percent(4)
-        signal = "GOOD"
-        logging.info("Healtcheck / CPU usage : " + str(cpu_usage) + "   / Battery level (V) : " + str(battery) + "  / State : " + state + "  / Signal : " + signal)  
+
+        #if DEBUG :
+        #cpu_usage = psutil.cpu_percent(4)
+        #signal = "GOOD"
+        #    logging.info("Healtcheck / CPU usage : " + str(cpu_usage) + "   / Battery level (V) : " + str(battery) + "  / State : " + state + "  / Signal : " + signal)  
 
 if __name__ == '__main__':
     
