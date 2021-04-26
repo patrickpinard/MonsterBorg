@@ -104,12 +104,10 @@
         
 		// POSTer function uses ajax library to post data from joystick to the server
 		
-		function POSTer(toLolcalHosta, toLolcalHostb,toLolcalHostc, toLolcalHostd) {
+		function POSTer(x,y) {
 		  formDATI = {
-			"motorX": toLolcalHosta,
-			"motorY": toLolcalHostb,
-			"servoX" : toLolcalHostc,
-			"servoY" : toLolcalHostd
+			"joystick_X" : x,
+			"joystick_Y" : y
 			};
 		  
 		  //	Transform data into JSON to be sent	
@@ -134,15 +132,15 @@
 		
 		// Create Joystick objects
 		var Joy1 = new JoyStick('speed');
-		var Joy2 = new JoyStick('steering');
+		//var Joy2 = new JoyStick('steering');
 		
 		//Call POSTer function every 50ms, sending data acquired by the two joysticks 
 		setInterval(function(){ 
 		  joy1Xvar = Joy1.GetX();
-		  joy1Yvar = Joy1.GetX();
-		  joy2Xvar = Joy2.GetX();
-		  joy2Yvar = Joy2.GetY(); 
-		  POSTer(parseInt(joy2Xvar), parseInt(joy2Yvar), parseInt(joy1Xvar), parseInt(joy1Yvar)) 
+		  joy1Yvar = Joy1.GetY();
+		  //joy2Xvar = Joy2.GetX();
+		  //joy2Yvar = Joy2.GetY(); 
+		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)) 
 		  }, 50);
 		
 		</script>
