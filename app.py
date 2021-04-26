@@ -28,7 +28,7 @@ global Borg, state, battery, cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
-DEBUG       = False
+DEBUG       = True
 name        = ""
 
 # fichier log
