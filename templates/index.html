@@ -84,7 +84,7 @@
 
 				<div class="col-md-4">
 					<div class="columnLateralsx">
-						<div id="speed" style="width:200px;height:200px;margin:10px"></div>
+						<div id="Joy1" style="width:200px;height:200px;margin:10px"></div>
 					</div>	
 				
 			</div>
@@ -106,8 +106,8 @@
 		
 		function POSTer(x,y) {
 		  Data = {
-			"steering" : x,
-			"speed" : y
+			"joy1_x" : x,
+			"joy1_y" : y
 			};
 		  
 		  //	Transform data into JSON to be sent	
@@ -131,7 +131,7 @@
 		
 		
 		// Create Joystick objects
-		var Joy1 = new JoyStick('speed');
+		var Joy1 = new JoyStick('Joy1');
 		//var Joy2 = new JoyStick('steering');
 		
 		//Call POSTer function every 50ms, sending data acquired by the two joysticks 

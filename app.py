@@ -111,22 +111,22 @@ def startstop():
                     logging.info("Stopping MonsterBorg ")
     return render_template("index.html",user = name)
 
-@app.route("/post", methods=['POST'])
+@app.route("/post", methods=['POST', 'GET'])
 def poster():
     
     if request.method == "POST":
          
         content = request.json
-        steering = int(json.dumps(content['steering']))
-        speed = int(json.dumps(content['speed']))
+        steering = int(json.dumps(content['joy1_x']))
+        speed = int(json.dumps(content['joy1_y']))
         
-        if steering > 0:
-            Borg.speedleft  = speed * (100 - steering)
+        if steering > 5:
+            Borg.speedleft  = speed * (1 - steering/100)
             Borg.speedright = speed
-        elif steering < 0:
-            Borg.speedright = speed * (100 + steering) 
+        elif steering < -5:
+            Borg.speedright = speed * (1 + steering/100) 
             Borg.speedleft  = speed
-        elif steering == 0:
+        else:
             Borg.speedright = speed 
             Borg.speedleft  = speed   
         if DEBUG :
