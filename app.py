@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 # Auteur    : Patrick Pinard
-# Date      : 15.3.2021
+# Date      : 26.4.2021
 # Objet     : Pilotage de Monsterborg avec interface web basée sur API RESTful Flask et bootstrap
-# Version   : 1.0
+# Version   : 2.1   -  ajout du joystick javascript avec axe X = steering; axe Y = speed, envoi des données toutes les 50ms
 # 
 #  {} = "alt/option" + "(" ou ")"
 #  [] = "alt/option" + "5" ou "6"
