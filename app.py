@@ -28,7 +28,8 @@ global Borg, state, battery, cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
-name    = ""
+DEBUG       = False
+name        = ""
 
 # fichier log
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -112,17 +113,13 @@ def startstop():
 
 @app.route("/post", methods=['POST'])
 def poster():
-    logging.info("enter in poster def ")
+    
     if request.method == "POST":
          
         content = request.json
-        # voir quelle joystick est la direction et la vitesse ....
         steering = int(json.dumps(content['joystick_X']))
         speed = int(json.dumps(content['joystick_Y']))
         
-        logging.info("steering  : " + str(steering))
-        logging.info("speed     : " + str(speed))  
-
         if steering > 0:
             Borg.speedleft  = speed * (100 - steering)
             Borg.speedright = speed
@@ -132,9 +129,11 @@ def poster():
         elif steering == 0:
             Borg.speedright = speed 
             Borg.speedleft  = speed   
-
-        logging.info("speedleft : " + str(Borg.speedleft))
-        logging.info("speedright: " + str(Borg.speedright))         
+        if DEBUG :
+            logging.info("steering  : " + str(steering))
+            logging.info("speed     : " + str(speed))  
+            logging.info("speedleft : " + str(Borg.speedleft))
+            logging.info("speedright: " + str(Borg.speedright))         
 
         return "ok"
 
