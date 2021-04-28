@@ -113,15 +113,16 @@ class car:
     
     def battery(self):
         """
-        Méthode retournant le niveau de la batterie LiPo dans .battCurrent
+        Méthode retournant le niveau de la batterie LiPo avec 3 chiffres et 2 décimales
         """ 
         # self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
+        self.battCurrent = "{:5.2f}".format(self.battCurrent)
         logging.info('niveau batterie : '+ str(self.battCurrent))
-        return "{:2.2f}".format(self.battCurrent)
+        return self.battCurrent
     
     def move(self):
         """
-        Méthode permettant de faire avancer la voiture avec une vitesse 
+        Méthode permettant de faire avancer la voiture avec une vitesse comprise entre -100 et 100
         speedleft et speedright pour chaque côté afin d'aller en avant et arrière
         """
         if self.running:
