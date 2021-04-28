@@ -116,7 +116,7 @@ class car:
         Méthode retournant le niveau de la batterie LiPo avec 3 décimales après la virgule
         """ 
         # self.battCurrent = '%.3f'%(float(self.TB.GetBatteryReading()))
-        self.battCurrent = round(self.TB.GetBatteryReading(), 3)
+        self.battCurrent = round(float(self.TB.GetBatteryReading(), 3))
         logging.info('niveau batterie : '+ str(self.battCurrent))
         return self.battCurrent
     
