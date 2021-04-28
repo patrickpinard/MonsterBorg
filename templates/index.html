@@ -134,14 +134,14 @@
 		var Joy1 = new JoyStick('Joy1');
 		//var Joy2 = new JoyStick('steering');
 		
-		//Call POSTer function every 50ms, sending data acquired by the two joysticks 
+		//Call POSTer function every 100ms, sending data acquired by the two joysticks 
 		setInterval(function(){ 
 		  joy1Xvar = Joy1.GetX();
 		  joy1Yvar = Joy1.GetY();
 		  //joy2Xvar = Joy2.GetX();
 		  //joy2Yvar = Joy2.GetY(); 
 		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)) 
-		  }, 50);
+		  }, 100);
 		
 		</script>
 	</body>

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 # Auteur    : Patrick Pinard
-# Date      : 26.4.2021
+# Date      : 28.4.2021
 # Objet     : Pilotage de Monsterborg avec interface web basée sur API RESTful Flask et bootstrap
-# Version   : 2.1   -  ajout du joystick javascript avec axe X = steering; axe Y = speed, envoi des données toutes les 50ms
+# Version   : 
+# 2.2   -  correctif pour joystick
+# 2.1   -  ajout du joystick javascript avec axe X = steering; axe Y = speed, envoi des données toutes les 50ms
 # 
 #  {} = "alt/option" + "(" ou ")"
 #  [] = "alt/option" + "5" ou "6"
@@ -57,7 +59,7 @@ def home():
 
     if request.method == "GET":
         # Check if user already logged in
-        logging.info("received a GET request")
+        
         if not session.get("logged_in"):
             logging.info("login not done, redirect to 'login' page")
             return render_template('login.html', error_message="please login")
@@ -67,7 +69,7 @@ def home():
 
     if request.method == "POST":
         # Try to login user
-        logging.info("received a POST request")
+        
         name = request.form.get("username")
         pwd = request.form.get("password")
 
@@ -88,13 +90,13 @@ def logout():
     logging.info("Monsterborg stopped when logout")
     session["logged_in"] = False
     logging.info("user " + name + " logout")
-    return render_template("login.html")
+    return render_template("login.html", name)
 
 
 @app.route("/startstop",methods = ['POST', 'GET'])                          
 def startstop():
 
-    global Borg
+    global Borg, name
     
     if session.get('logged_in'):
             parser = reqparse.RequestParser(bundle_errors=True)
@@ -109,10 +111,10 @@ def startstop():
                     Borg.running = False
                     state = "STOPPED"
                     logging.info("Stopping MonsterBorg ")
-    return render_template("index.html",user = name)
+    return render_template("index.html", name)
 
-@app.route("/post", methods=['POST', 'GET'])
-def poster():
+@app.route("/post", methods=['POST'])
+def post():
     
     if request.method == "POST":
          
