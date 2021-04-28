@@ -2,7 +2,9 @@
 
 Voiture électrique de type Monsterborg contrôlée via interface Web en utilisant les technologies suivantes :
 
-  - Flask et CORS
+  - Python
+  - Flask
+  - CORS
   - Ajax
   - Restfull API
   - Threading
