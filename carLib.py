@@ -115,7 +115,7 @@ class car:
         """
         Méthode retournant le niveau de la batterie LiPo avec 3 décimales après la virgule
         """ 
-        self.battCurrent = "%02.2f".format(self.battCurrent)
+        self.battCurrent = "{%02.2f}".format(self.battCurrent)
         logging.info('niveau batterie : '+ str(self.battCurrent))
         return self.battCurrent
     
