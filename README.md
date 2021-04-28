@@ -20,3 +20,14 @@ Il est la suite du projet plus simple MonsterBorg V1 avec une APP Blynk qui est 
 
 ![](images/MonsterborgV2.jpg)
 
+# Login page
+
+Login page pour accéder au serveur Flask embarqué
+
+![](images/login.png)
+
+# Command Center
+
+Pilotage avec un joystick javascript et une caméra Pi embarquée (12Mx)
+
+![](images/camera.png)
