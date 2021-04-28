@@ -4,7 +4,7 @@
 # Date      : 28.4.2021
 # Objet     : Pilotage de Monsterborg avec interface web basée sur API RESTful Flask et bootstrap
 # Version   : 
-# 2.2   -  correctif pour joystick
+# 2.2   -  correctif pour direction avant-arrière avec le joystick. Ne fonctionne pas sur tablette iPAD.
 # 2.1   -  ajout du joystick javascript avec axe X = steering; axe Y = speed, envoi des données toutes les 50ms
 # 
 #  {} = "alt/option" + "(" ou ")"
@@ -90,7 +90,7 @@ def logout():
     logging.info("Monsterborg stopped when logout")
     session["logged_in"] = False
     logging.info("user " + name + " logout")
-    return render_template("login.html", name)
+    return render_template("login.html")
 
 
 @app.route("/startstop",methods = ['POST', 'GET'])                          
