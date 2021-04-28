@@ -113,10 +113,9 @@ class car:
     
     def battery(self):
         """
-        Méthode retournant le niveau de la batterie LiPo avec 3 chiffres et 2 décimales
+        Méthode retournant le niveau de la batterie LiPo avec 3 décimales après la virgule
         """ 
-        # self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
-        self.battCurrent = "{:5.2f}".format(self.battCurrent)
+        self.battCurrent = '%.3f'%(self.TB.GetBatteryReading())
         logging.info('niveau batterie : '+ str(self.battCurrent))
         return self.battCurrent
     

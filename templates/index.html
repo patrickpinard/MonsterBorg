@@ -70,24 +70,22 @@
 					
 			<div class="row">
 
+				<div class="col-md-4">
+					<div class="columnLateralsx">
+						<div id="Speed" style="width:300px;height:300px;margin:15px"></div>
+					</div>	
+				</div>
+				
 				<div class="col-md-8">
 					<img src="http://monsterborg.ppdlab.ch:5000/video_feed" width="100%" >
 				</div>
 
 				<div class="col-md-4">
 					<div class="columnLateralsx">
-						<div id="Joy1" style="width:300px;height:300px;margin:15px"></div>
+						<div id="Steering" style="width:300px;height:300px;margin:15px"></div>
 					</div>	
-				
+				</div>				
 			</div>
-
-			<!-- 2ème joystick ?  
-			<div class="col-md-4">
-				<div class="columnLateraldx">
-					<div id="steering" style="width:200px;height:200px;margin:20px"></div>
-				</div>	
-			</div>
-			-->
 		</div>
 	
 
@@ -96,10 +94,12 @@
         
 		// POSTer function uses ajax library to post data from joystick to the server
 		
-		function POSTer(x,y) {
+		function POSTer(x1,y1,x2,y2) {
 		  Data = {
-			"joy1_x" : x,
-			"joy1_y" : y
+			"joy1_x" : x1,
+			"joy1_y" : y1,
+			"joy2_x" : x2,
+			"joy2_y" : y2
 			};
 		  
 		  //	Transform data into JSON to be sent	
@@ -123,17 +123,17 @@
 		
 		
 		// Create Joystick objects
-		var Joy1 = new JoyStick('Joy1');
-		//var Joy2 = new JoyStick('steering');
+		var Joy1 = new JoyStick('Steering');
+		var Joy2 = new JoyStick('Speed');
 		
-		//Call POSTer function every 100ms, sending data acquired by the two joysticks 
+		//Call POSTer function every 50ms, sending data acquired by the two joysticks 
 		setInterval(function(){ 
 		  joy1Xvar = Joy1.GetX();
 		  joy1Yvar = Joy1.GetY();
-		  //joy2Xvar = Joy2.GetX();
-		  //joy2Yvar = Joy2.GetY(); 
-		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)) 
-		  }, 100);
+		  joy2Xvar = Joy2.GetX();
+		  joy2Yvar = Joy2.GetY(); 
+		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar),parseInt(joy2Xvar), parseInt(joy2Yvar)) 
+		  }, 50);
 		
 		</script>
 	</body>

@@ -120,7 +120,7 @@ def post():
          
         content = request.json
         steering = int(json.dumps(content['joy1_x']))
-        speed = -int(json.dumps(content['joy1_y']))
+        speed = -int(json.dumps(content['joy2_y']))
         
         if steering > 5:
             Borg.speedleft  = int(speed * (1 - steering/100))
