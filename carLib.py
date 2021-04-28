@@ -16,7 +16,7 @@
 
 # Importation des librairies nécessaires
 import sys
-import time
+import time, re
 import logging
 import ThunderBorg3 as ThunderBorg
 
@@ -115,7 +115,11 @@ class car:
         """
         Méthode retournant le niveau de la batterie LiPo avec 3 décimales après la virgule
         """ 
-        self.battCurrent = "{%02.2f}".format(self.battCurrent)
+
+        def truncate(num):
+            return re.sub(r'^(\d+\.\d{,2})\d*$',r'\1',str(num))
+        
+        self.battCurrent = truncate(self.battCurrent)
         logging.info('niveau batterie : '+ str(self.battCurrent))
         return self.battCurrent
     
