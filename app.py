@@ -3,9 +3,7 @@
 # Auteur    : Patrick Pinard
 # Date      : 28.4.2021
 # Objet     : Pilotage de Monsterborg avec interface web basée sur API RESTful Flask et bootstrap
-# Version   : 
-# 2.2   -  correctif pour direction avant-arrière avec le joystick. Ne fonctionne pas sur tablette iPAD. ok sur iphone. Dès que logout, ne redemarre plus !
-# 2.1   -  ajout du joystick javascript avec axe X = steering; axe Y = speed, envoi des données toutes les 50ms
+# Version   : 2.0
 # 
 #  {} = "alt/option" + "(" ou ")"
 #  [] = "alt/option" + "5" ou "6"
@@ -62,7 +60,7 @@ def home():
         
         if not session.get("logged_in"):
             logging.info("login not done, redirect to 'login' page")
-            return render_template('login.html', error_message="please login")
+            return render_template('login.html', error_message="")
         else:
             logging.info("login already done, redirect to 'index' page")
             return "already logged"
@@ -199,11 +197,6 @@ class HealthCheck (threading.Thread):
             state = "RUNNING"
         else: 
             state = "STOPPED"
-
-        #if DEBUG :
-        #cpu_usage = psutil.cpu_percent(4)
-        #signal = "GOOD"
-        #    logging.info("Healtcheck / CPU usage : " + str(cpu_usage) + "   / Battery level (V) : " + str(battery) + "  / State : " + state + "  / Signal : " + signal)  
 
 if __name__ == '__main__':
     
