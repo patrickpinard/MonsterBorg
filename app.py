@@ -111,7 +111,7 @@ def startstop():
                     Borg.running = False
                     state = "STOPPED"
                     logging.info("Stopping MonsterBorg ")
-    return render_template("index.html", name)
+    return render_template("index.html")
 
 @app.route("/post", methods=['POST'])
 def post():
