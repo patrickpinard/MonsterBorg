@@ -19,6 +19,8 @@ import random
 import psutil
 import logging
 import threading
+
+from werkzeug.exceptions import TooManyRequests
 import carLib
 import json
 from camera_pi import Camera
@@ -145,7 +147,7 @@ class FlaskApp (threading.Thread):
       self.name = name
    def run(self):
       logging.info("FlaskApp Thread started") 
-      app.run(host='0.0.0.0', port = 5000, debug=False)
+      app.run(host='0.0.0.0', port = 5000, debug=True)
 
 
 class MoveBorg (threading.Thread):
