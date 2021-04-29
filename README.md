@@ -2,6 +2,9 @@
 
 ....Documentation en cours de création.....
 
+
+![](images/Monsterborg480p.mov)
+
 ... reste à faire :  
 
    + activer la carte 4G en mode modem (sans nAT); 
