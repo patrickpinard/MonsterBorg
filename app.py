@@ -209,26 +209,25 @@ if __name__ == '__main__':
     Borg.start()
 
     # Create new threads
-    #thread1 = FlaskApp(1, "FlaskApp")
+    thread1 = FlaskApp(1, "FlaskApp")
     thread2 = MoveBorg(2, "MoveBorg")
     thread3 = HealthCheck(3, "Healthcheck")
     thread4 = DNSUpdater(4, "DNS-Updater")
     logging.info("Threads created ....") 
     
     # Start new Threads
-    #thread1.start()
+    thread1.start()
     thread2.start()
     thread3.start()
     thread4.start()
 
     logging.info("Threads started ....")
-    #thread1.join()
+    thread1.join()
     thread2.join()
     thread3.join()
     thread4.join()
     logging.info("Threads joined ....")
 
-    logging.info("FlaskApp Thread started") 
-    app.run(host='0.0.0.0', port = 5000, debug=True)
+    
 
 
