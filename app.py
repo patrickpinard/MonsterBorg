@@ -191,7 +191,7 @@ class HealthCheck (threading.Thread):
 
        logging.info("HealthCheck Thread started") 
        while True: 
-        sleep(5)
+        sleep(60)
         battery = Borg.battery()
         if Borg.running:
             state = "RUNNING"
