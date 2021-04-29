@@ -1,27 +1,27 @@
 # MonsterBorg V2
 
-....Documentation en cours de création.....
+Objectif du projet : piloter une voiture au travers du réseau wifi local, puis au travers du réseau 4G pour comparer les latences et capacité de conduite en temps réel. Par la suite, dès qu'une carte USB modem 5G sera disponible à bas prix, comparer avec les capacités de bout-en-bout au travers des services 5G.
 
-
-![](images/Monsterborg480p.mov)
+Ce projet fait suite au premier prototype de base avec une application basée sur le service Blynk : https://github.com/patrickpinard/MonsterBorg-Blynk
 
 ... reste à faire :  
 
-   + activer la carte 4G en mode modem (sans nAT); 
+   + activer la carte 4G en mode modem (sans la fonction NAT); 
    + améliorer le positionnement de la caméra et mettre un grand angle
    + améliorer l'interface web en incluant la lecture de paramètres (batterie, niveau du signal, etc.)
-   + inclure les données GPS si possible sur une carte (mode grand écran)
+   + inclure les données GPS si possible sur une carte (mode grand écran) -> optionnel
    + finaliser la documentation
    + log file complet
 
-Voiture électrique de type Monsterborg contrôlée via interface Web en utilisant les technologies suivantes :
+Le deuxième objectif étant d'apprendre et combiner les technologies suivantes :
 
-  - Python
+  - Raspberry Pi 
+  - Python (v3)
   - Flask
   - CORS
   - Ajax
-  - Restfull API
-  - Threading
+  - Restfull API (créer et utiliser une API)
+  - Multi-Threading 
   - Bootstrap
   - HTML 5
   - javascript
@@ -30,20 +30,6 @@ Voiture électrique de type Monsterborg contrôlée via interface Web en utilisa
   - Logging 
   - etc.
 
-Ce projet consiste à piloter un véhicule électrique grâce à une simple application web embarquée sur un Raspberry PI. Le véhicule peut être piloté à distance grâce aux réseaux Wifi, 3/4G ou éventuellement 5G plus tard. 
 
-Il est la suite du projet plus simple MonsterBorg V1 avec une APP Blynk qui est disponible ici : https://github.com/patrickpinard/MonsterBorg-Blynk
 
-![](images/MonsterborgV2.jpg)
 
-# Login page
-
-Login page pour accéder au serveur Flask embarqué
-
-![](images/login.png)
-
-# Command Center
-
-Pilotage avec un joystick javascript et une caméra Pi embarquée (12Mx)
-
-![](images/camera.png)
