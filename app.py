@@ -23,34 +23,50 @@ import threading
 from werkzeug.exceptions import TooManyRequests
 import carLib
 import json
-from camera_pi import Camera
+
 from flask_cors import CORS
 
 global Borg, state, battery, cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
-DEBUG       = False
+DEBUG       = True
+VERBOSE     = False
+SIMULATE    = True  # simulation pour camera Pi
 name        = ""
 
 # fichier log
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+if not SIMULATE:  
+    from camera_pi import Camera
+else: 
+    logging.info("mode simulation camera enclenché")
+    
 app = Flask(__name__)
 CORS(app)
 
 def gen(camera):
-    """Video streaming generator function."""
+    """Video streaming de la caméra Pi."""
+    i = 0
     while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        if not SIMULATE: 
+            frame = camera.get_frame()
+            yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        else: 
+            # ne rien faire
+            i= i + 1
+            if i> 1000 : i = 0
 
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()),
+    if not SIMULATE: 
+        return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+    else: 
+        return "video streming simulation"
 
 @app.route('/', methods=["GET", "POST"])
 def home():
@@ -131,7 +147,7 @@ def post():
         else:
             Borg.speedright = speed 
             Borg.speedleft  = speed   
-        if DEBUG :
+        if VERBOSE :
             logging.info("steering  : " + str(steering))
             logging.info("speed     : " + str(speed))  
             logging.info("speedleft : " + str(Borg.speedleft))
@@ -194,7 +210,7 @@ class HealthCheck (threading.Thread):
        logging.info("HealthCheck Thread started") 
        while True: 
         sleep(60)
-        battery = Borg.battery()
+        if DEBUG : battery = Borg.battery()
         if Borg.running:
             state = "RUNNING"
         else: 
