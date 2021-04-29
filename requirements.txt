@@ -11,3 +11,5 @@ psutil==5.8.0
 pytz==2021.1
 six==1.15.0
 Werkzeug==1.0.1
+picamera
+
