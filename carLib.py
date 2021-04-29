@@ -15,7 +15,7 @@
 #   \  = Alt + Maj + / 
 
 # Importation des librairies nécessaires
-from app import VERBOSE
+
 import sys
 import time, re
 import logging
@@ -25,7 +25,7 @@ import logging
 logging = logging.getLogger()
 
 SIMULATE  = True    # simulation sans la carte ThunderBorg 
-VERBOSE   = False    # on log toutes les activités dans le fichier de log par défaut
+VERBOSE   = False   # on log toutes les activités dans le fichier de log par défaut (y compris tous les mouvements -> lourd)
 MIN_SPEED = 30      # niveau minimum pour faire démarrer le moteur
 MAX_SPEED = 95      # niveau maximum moteur autorisé
 
@@ -34,7 +34,6 @@ if SIMULATE :
 else:
     import ThunderBorg3 as ThunderBorg 
     
-
 
 class car:
  

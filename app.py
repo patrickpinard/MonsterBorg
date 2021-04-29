@@ -19,14 +19,12 @@ import random
 import psutil
 import logging
 import threading
-
 from werkzeug.exceptions import TooManyRequests
 import carLib
 import json
-
 from flask_cors import CORS
 
-global Borg, state, battery, cpu_usage, signal
+global Borg, battery, state,cpu_usage, signal
 
 PASSWORD    = 'password'
 USERNAME    = "admin"
