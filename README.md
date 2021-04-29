@@ -2,6 +2,15 @@
 
 ....Documentation en cours de création.....
 
+... reste à faire :  
+
+   + activer la carte 4G en mode modem (sans nAT); 
+   + améliorer le positionnement de la caméra et mettre un grand angle
+   + améliorer l'interface web en incluant la lecture de paramètres (batterie, niveau du signal, etc.)
+   + inclure les données GPS si possible sur une carte (mode grand écran)
+   + finaliser la documentation
+   + log file complet
+
 Voiture électrique de type Monsterborg contrôlée via interface Web en utilisant les technologies suivantes :
 
   - Python
