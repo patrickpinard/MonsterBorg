@@ -1,4 +1,4 @@
-# MonsterBorg V2. (wifi/4 et 5G)
+# MonsterBorg V2
 
 Objectif du projet : piloter une voiture au travers du réseau wifi local, puis au travers du réseau 4G pour comparer les latences et capacité de conduite en temps réel. Par la suite, dès qu'une carte USB modem 5G sera disponible à bas prix, comparer avec les capacités de bout-en-bout au travers des services 5G.
 
