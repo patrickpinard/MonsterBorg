@@ -29,7 +29,7 @@ global Borg, battery, state,cpu_usage, signal
 PASSWORD    = 'password'
 USERNAME    = "admin"
 DEBUG       = True
-VERBOSE     = False
+VERBOSE     = True
 SIMULATE    = False  # simulation pour camera Pi
 name        = ""
 signal      = "Wifi"
@@ -81,7 +81,7 @@ def home():
         
         if not session.get("logged_in"):
             logging.info("login not done, redirect to 'login' page")
-            return render_template('login.html', error_message="")
+            return render_template('login.html', error_message=" welcome ! ")
         else:
             logging.info("login already done, redirect to 'index' page")
             return "already logged"
