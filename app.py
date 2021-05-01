@@ -32,6 +32,11 @@ DEBUG       = True
 VERBOSE     = False
 SIMULATE    = False  # simulation pour camera Pi
 name        = ""
+signal      = "Wifi"
+battery     = "n/a"
+cpu         = "n/a"
+state       = "Running"
+
 
 # fichier log
 logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -69,7 +74,7 @@ def video_feed():
 @app.route('/', methods=["GET", "POST"])
 def home():
     
-    global Borg
+    global Borg, signal, battery, cpu, state
 
     if request.method == "GET":
         # Check if user already logged in
@@ -90,7 +95,7 @@ def home():
         if pwd == PASSWORD and name == USERNAME:
                 logging.info("user: " + name + " logged in")
                 session['logged_in'] = True
-                return render_template('index.html',user=name)
+                return render_template('index.html',user=name, signal = signal; battery = battery; cpu = cpuM state = state)
         else:
                 logging.warning("login with wrong username and password")
                 return render_template('login.html', error_message="wrong username and password. Please try again")
