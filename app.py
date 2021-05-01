@@ -14,7 +14,7 @@
 from flask import Flask, render_template, Response, request, redirect, jsonify, url_for, session, abort
 from flask_restful import Resource, Api, reqparse
 from time import sleep
-import os, datetime
+import os
 import random
 import psutil
 import logging
@@ -23,6 +23,7 @@ from werkzeug.exceptions import TooManyRequests
 import carLib
 import json
 from flask_cors import CORS
+from datetime import datetime
 
 global Borg, battery, state,cpu_usage, signal
 
