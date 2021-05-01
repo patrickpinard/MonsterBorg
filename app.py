@@ -30,7 +30,7 @@ PASSWORD    = 'password'
 USERNAME    = "admin"
 DEBUG       = True
 VERBOSE     = False
-SIMULATE    = True  # simulation pour camera Pi
+SIMULATE    = False  # simulation pour camera Pi
 name        = ""
 
 # fichier log
