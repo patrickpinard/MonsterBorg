@@ -112,6 +112,10 @@ def logout():
     logging.info("user " + name + " logout")
     return render_template("login.html")
 
+@app.route('/update', methods=['POST', 'GET'])
+def update():
+    global Borg
+    return str(Borg.battery)
 
 @app.route("/startstop",methods = ['POST', 'GET'])                          
 def startstop():
