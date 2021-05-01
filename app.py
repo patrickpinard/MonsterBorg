@@ -43,6 +43,7 @@ logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO, format
 
 if not SIMULATE:  
     from camera_pi import Camera
+    logging.info("mode réel enclenché")
 else: 
     logging.info("mode simulation camera enclenché")
     

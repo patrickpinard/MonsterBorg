@@ -36,8 +36,22 @@
 		<p>&nbsp;</p>
 		
 		<!-- container pour les boutons start & stop, la vidéo et le joystick-->
+		<div class="container-fluid"> 
+			<div class="row">
+				<div class="col-sm-8">
+					<p>Véhicule électrique télécommandé via APP restful et interface Web</p>
+				</div>
+				<div class="col-sm-4">
+					<form method="POST" action="/startstop">
+						<div class="btn-group-lg" role="group" >
+						<p>&nbsp;</p>
+						<form method="POST" action="/startstop" class="center-block">
+							<button name="state" type="submit" class="btn btn-danger btn-lg" value="STOP">  STOP  </button> <b></b>
+							<button name="state" type="submit" class="btn btn-primary btn-lg" value="START">  START </button>
+						</form>
+				</div>
 
-		<div class="container"> 
+		<div class="container-fluid"> 
 			<div class="row">
 				<div class="col-sm-8">
 					<div class="card">
@@ -61,7 +75,7 @@
 				</div>				
 			</div>
 		</div>
-		<div class="container">
+		<div class="container-fluid">
             <div class="row my-4">
             <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
             <div class="card">
@@ -103,7 +117,7 @@
           </div>  
 		<!-- Footer -->
         <footer class="py-2 bg-dark">
-            <div class="container">
+            <div class="container-fluid">
                 <p class="m-0 text-center text-white"> MonsterBorg Project v2 -  monsterborg.ppdlab.ch - mai 2021  </p>
             </div>
 	        
