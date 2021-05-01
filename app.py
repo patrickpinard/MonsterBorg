@@ -95,7 +95,7 @@ def home():
         if pwd == PASSWORD and name == USERNAME:
                 logging.info("user: " + name + " logged in")
                 session['logged_in'] = True
-                return render_template('index.html',user=name, signal = signal; battery = battery; cpu = cpuM state = state)
+                return render_template('index.html',user=name, signal = signal, battery = battery, cpu = cpu, state = state)
         else:
                 logging.warning("login with wrong username and password")
                 return render_template('login.html', error_message="wrong username and password. Please try again")
