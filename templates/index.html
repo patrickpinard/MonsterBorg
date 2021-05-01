@@ -4,7 +4,18 @@
 		function load_battery(){
 		 var content = document.getElementById('battery');
 		 xhr = new XMLHttpRequest();
-		 xhr.open('POST', '/update', false);
+		 xhr.open('POST', '/update_battery', false);
+		 xhr.onload = function() {
+			 content.innerHTML = this.responseText;
+		 };
+		 xhr. send();
+	 }
+	 setInterval(function(){ load_battery()},1000);
+
+	 function load_time(){
+		 var content = document.getElementById('time');
+		 xhr = new XMLHttpRequest();
+		 xhr.open('POST', '/update_time', false);
 		 xhr.onload = function() {
 			 content.innerHTML = this.responseText;
 		 };
@@ -70,7 +81,6 @@
             <div class="card">
                 <h5 class="card-header">Battery level (V)</h5>
                 <div class="card-body">
-                  <p class="card-title">{{ battery }}</p>
 				  <div id="battery">battery</div>
                 </div>
               </div>
@@ -93,9 +103,9 @@
             </div>
             <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                 <div class="card">
-                    <h5 class="card-header">Motors state</h5>
+                    <h5 class="card-header">Time running</h5>
                     <div class="card-body">
-                      <p class="card-title">{{ state }}</p>
+						<div id="time">time</div>
                     </div>
                   </div>
             </div>
