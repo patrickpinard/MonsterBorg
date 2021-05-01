@@ -115,7 +115,7 @@ def logout():
 @app.route('/update', methods=['POST', 'GET'])
 def update():
     global Borg
-    return str(Borg.battery)
+    return str(Borg.battery())
 
 @app.route("/startstop",methods = ['POST', 'GET'])                          
 def startstop():
