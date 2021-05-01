@@ -31,23 +31,79 @@
 		</nav>
 
 		<!-- sauts de lignes -->
-		<p>&nbsp;</p> <p>&nbsp;</p> <p>&nbsp;</p> <p>&nbsp;</p> 
+		<p>&nbsp;</p> <p>&nbsp;</p> 
     
 		<!-- container pour les boutons start & stop, la vidéo et le joystick-->
 
 		<div class="container"> 
 			<div class="row">
 				<div class="col-sm-8">
-					<img src="http://monsterborg.ppdlab.ch:5000/video_feed" width="100%" >
+					<div class="card">
+						<h5 class="card-header">Streaming Camera Pi</h5>
+						<div class="card-body">
+							<img src="http://monsterborg.ppdlab.ch:5000/video_feed" width="100%" >
+						</div>
+					</div>
+					
 				</div>
 
 				<div class="col-sm-4">
-						<div id="Steering" style="width:250px;height:250px;margin:5px"></div>
+					<div class="card">
+						<h5 class="card-header">Joystick control</h5>
+						<div class="card-body">
+							<div id="Steering" style="width:250px;height:250px;margin:5px"></div>
+						</div>
+					</div>
+						
 				</div>				
 			</div>
 		</div>
-	
-
+		<div class="container">
+            <p>&nbsp;</p> 
+            <div class="row my-4">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <div class="card">
+                <h5 class="card-header">Battery</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{ battery }}</h5>
+                  <p class="card-text"> Level in Volts (min 9,4)</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Communication</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ signal }}</h5>
+                      <p class="card-text">Signal strenght</p>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Process</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ cpu }}</h5>
+                      <p class="card-text"> cpu usage % </p>  
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Motors</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">state : {{ state }}</h5>
+					  <p class="card-text"> Running or Stop Borg state </p>
+                    </div>
+                  </div>
+            </div>
+            </div>
+          </div>  
+		<!-- Footer -->
+        <footer class="py-2 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white"> MonsterBorg Project v1.0 -  monsterborg.ppdlab.ch - mars 2021  </p>
+            </div>
 	        
 		<script type="text/javascript	">
         
