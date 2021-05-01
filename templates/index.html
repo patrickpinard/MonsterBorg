@@ -59,6 +59,58 @@
 				</div>				
 			</div>
 		</div>
+		<div class="container">
+            <p>&nbsp;</p> 
+            <div class="checkbox">
+              <form action="/checkbox" method="post"></form>
+                <label>
+                  <input name="fast_turn" type="checkbox" data-toggle="toggle">
+                  Fast turn
+                  &nbsp &nbsp &nbsp &nbsp
+                  <input name="full_speed" type="checkbox" data-toggle="toggle">
+                  Full speed
+                </label>
+              <form>
+            </div>
+            <div class="row my-4">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <div class="card">
+                <h5 class="card-header">Battery</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{ battery }}</h5>
+                  <p class="card-text"> Level in Volts (min 9,4)</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Communication</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ signal }}</h5>
+                      <p class="card-text">Signal strenght</p>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Process</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ cpu }}</h5>
+                      <p class="card-text"> cpu usage % </p>  
+                    </div>
+                  </div>
+            </div>
+            <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+                <div class="card">
+                    <h5 class="card-header">Motors</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">state : {{ state }}</h5>
+                      <p class="card-text"> left : {{ left }}  &nbsp &nbsp right : {{ right }}</p>
+                    </div>
+                  </div>
+            </div>
+            </div>
+          </div>  
 		<!-- Footer -->
         <footer class="py-2 bg-dark">
             <div class="container">
