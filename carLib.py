@@ -24,7 +24,7 @@ import logging
 # on récupère le fichier de log par défaut 
 logging = logging.getLogger()
 
-SIMULATE  = True    # simulation sans la carte ThunderBorg 
+SIMULATE  = False    # simulation sans la carte ThunderBorg 
 VERBOSE   = False   # on log toutes les activités dans le fichier de log par défaut (y compris tous les mouvements -> lourd)
 MIN_SPEED = 30      # niveau minimum pour faire démarrer le moteur
 MAX_SPEED = 95      # niveau maximum moteur autorisé
