@@ -14,7 +14,7 @@
 from flask import Flask, render_template, Response, request, redirect, jsonify, url_for, session, abort
 from flask_restful import Resource, Api, reqparse
 from time import sleep
-import os
+import os, datetime
 import random
 import psutil
 import logging
@@ -120,6 +120,7 @@ def update_battery():
 
 @app.route('/update_time', methods=['POST', 'GET'])
 def update_time():
+    now = datetime.now()
     time = now.strftime("%H:%M:%S")
     logging.info("Refresh time running info on webpage")
     return str(time)
