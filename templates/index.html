@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+	<script>
+		function load_battery(){
+		 var content = document.getElementById('battery');
+		 xhr = new XMLHttpRequest();
+		 xhr.open('POST', '/update', false);
+		 xhr.onload = function() {
+			 content.innerHTML = this.responseText;
+		 };
+		 xhr. send();
+	 }
+	 setInterval(function(){ load_battery()},1000);
+	 </script>
+
   	<head>
 
 		<!-- format caractère européen avec accents -->
@@ -58,6 +71,7 @@
                 <h5 class="card-header">Battery level (V)</h5>
                 <div class="card-body">
                   <p class="card-title">{{ battery }}</p>
+				  <div id="battery">battery</div>
                 </div>
               </div>
             </div>
