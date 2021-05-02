@@ -160,7 +160,11 @@
 		  //joy2Xvar = Joy2.GetX();
 		  //joy2Yvar = Joy2.GetY(); 
 		  if (Math.abs(joy1Yvar) > 5) {
-		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)); 
+			  // vitesse supérieure à 5 -> on envoyée les données au serveur
+		  	POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)); 
+			} else {
+				joy1Xvar = 0;
+		  		joy1Yvar = 0;
 			}
 		  }, 50)
 		</script>
