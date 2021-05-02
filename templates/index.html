@@ -128,7 +128,7 @@
 			//"joy2_x" : x2,
 			//"joy2_y" : y2
 			};
-		  
+		
 		  //	Transform data into JSON to be sent	
 			var formData = JSON.stringify(Data);
 		
@@ -159,10 +159,8 @@
 		  joy1Yvar = Joy1.GetY();
 		  //joy2Xvar = Joy2.GetX();
 		  //joy2Yvar = Joy2.GetY(); 
-		  if (joy1Xvar > 0)  || (joy1Yvar > 0){
 		  POSTer(parseInt(joy1Xvar), parseInt(joy1Yvar)) 
 		  }, 50);
-		  };
 		</script>
 	</body>
 </html>
